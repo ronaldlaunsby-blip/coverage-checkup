@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is Your Family Covered? A 3-Minute Checkup | Ron Launsby</title>
+<style>
+:root{--ink:#14283a;--mute:#4f6272;--line:#cfd8df;--bg:#f6f8fa;--card:#fff;--accent:#1d6f5a;--accent-d:#14513f;--warn:#fff4d6;--warn-b:#d9a82b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 .5em}
+h1{font-size:2rem}h2{font-size:1.4rem}
+main{max-width:720px;margin:0 auto;padding:0 18px 60px}
+header{background:var(--ink);color:#fff;padding:36px 18px 30px}
+header div{max-width:720px;margin:0 auto}
+header p{margin:0;color:#d5e0e8}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;margin:22px 0}
+label{display:block;font-weight:600;margin:16px 0 4px}
+.hint{font-weight:400;color:var(--mute);font-size:.9rem;display:block}
+input,select,textarea{width:100%;font:inherit;padding:11px;border:1px solid #9fb0bd;border-radius:6px;background:#fff;color:var(--ink)}
+button,.btn{display:inline-block;font:inherit;font-weight:700;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:13px 20px;margin:8px 8px 0 0;text-decoration:none;cursor:pointer}
+button:hover,.btn:hover{background:var(--accent-d)}
+.btn.alt{background:#fff;color:var(--accent-d);border:2px solid var(--accent)}
+.pick{display:block;width:100%;text-align:left;margin:10px 0;background:#fff;color:var(--ink);border:2px solid var(--line);font-weight:600}
+.pick small{display:block;font-weight:400;color:var(--mute)}
+.pick.on{border-color:var(--accent);background:#eaf4f0}
+.pick:hover{background:#eaf4f0}
+:focus-visible{outline:3px solid #e29a00;outline-offset:2px}
+.result{background:#eaf4f0;border-left:5px solid var(--accent);padding:14px 16px;margin-top:18px;border-radius:6px}
+.result b{font-size:1.3rem}
+.note{background:var(--warn);border-left:5px solid var(--warn-b);padding:12px 16px;border-radius:6px;font-size:.95rem}
+details{border-top:1px solid var(--line);padding:12px 0}details:first-of-type{border-top:0}
+summary{font-weight:600;cursor:pointer}
+pre{white-space:pre-wrap;background:#f1f4f7;border:1px solid var(--line);border-radius:6px;padding:14px;font:inherit;font-size:.95rem}
+footer{font-size:.8rem;color:var(--mute);border-top:1px solid var(--line);padding-top:16px;margin-top:30px}
+[hidden]{display:none!important}
+@media (prefers-color-scheme:dark){
+:root{--ink:#e6edf2;--mute:#a9b9c5;--line:#33485a;--bg:#0f1b26;--card:#16273a;--warn:#3a3014;--accent:#2e9a7d;--accent-d:#3fb596}
+header{background:#0a131c}
+input,select,textarea{background:#0f1b26;border-color:#587083}
+.result,.pick.on,.pick:hover{background:#173a31}.pick{background:#16273a}pre{background:#0f1b26}.btn.alt{background:transparent;color:#7fd8bf}
+button,.btn{color:#04120d}
+}
+</style>
+</head>
+<body>
+<header><div>
+<h1>Is your family covered?</h1>
+<p>A three-minute checkup. Tell me what you want to protect, see a rough coverage amount, and send it to Ron Launsby. He’ll call you to go over real options.</p>
+</div></header>
+<main>
+
+<section class="card">
+<h2>1. What do you want to protect?</h2>
+<button type="button" class="pick" data-t="mortgage">Our home<small>Mortgage protection: the mortgage gets paid if you die</small></button>
+<button type="button" class="pick" data-t="term">Our family’s income<small>Term life: income replaced while the kids are growing up</small></button>
+<button type="button" class="pick" data-t="final">Funeral and final costs<small>Final expense: so your family isn’t stuck with the bill</small></button>
+</section>
+
+<section class="card" id="form" hidden>
+<h2>2. A few quick details</h2>
+<label for="age">Your age</label>
+<input type="number" id="age" min="18" max="85" inputmode="numeric">
+<label for="tob">Tobacco or nicotine in the last 12 months?</label>
+<select id="tob"><option value="">Choose one</option><option>No</option><option>Yes</option></select>
+<label for="state">State</label>
+<input type="text" id="state" placeholder="Example: Missouri">
+
+<div id="f-mortgage" hidden>
+<label for="bal">Mortgage balance remaining <span class="hint">Dollars</span></label>
+<input type="number" id="bal" min="0" inputmode="numeric">
+<label for="yrsleft">Years left on the mortgage</label>
+<input type="number" id="yrsleft" min="1" max="40" inputmode="numeric">
+<label for="extra">Extra to cover a few months of bills <span class="hint">Optional, dollars</span></label>
+<input type="number" id="extra" min="0" inputmode="numeric">
+</div>
+
+<div id="f-term" hidden>
+<label for="inc">Yearly income your family relies on <span class="hint">Dollars</span></label>
+<input type="number" id="inc" min="0" inputmode="numeric">
+<label for="yrs">Years your family would need it <span class="hint">For example, until the youngest is out of school</span></label>
+<input type="number" id="yrs" min="1" max="40" inputmode="numeric">
+<label for="debts">Debts besides the mortgage <span class="hint">Optional, dollars</span></label>
+<input type="number" id="debts" min="0" inputmode="numeric">
+</div>
+
+<div id="f-final" hidden>
+<label for="fun">Funeral and burial costs you want covered <span class="hint">Ask a local funeral home for today’s prices</span></label>
+<input type="number" id="fun" min="0" inputmode="numeric">
+<label for="oth">Medical bills, debts, or other costs <span class="hint">Optional, dollars</span></label>
+<input type="number" id="oth" min="0" inputmode="numeric">
+<label for="leave">Something extra to leave behind <span class="hint">Optional, dollars</span></label>
+<input type="number" id="leave" min="0" inputmode="numeric">
+</div>
+
+<label for="have">Life insurance you already have <span class="hint">Include work coverage. Dollars, or leave blank.</span></label>
+<input type="number" id="have" min="0" inputmode="numeric">
+<label for="bud">Monthly amount you’re comfortable paying <span class="hint">Dollars</span></label>
+<input type="number" id="bud" min="0" inputmode="numeric">
+<button type="button" id="calc">Show my rough coverage amount</button>
+<div class="result" id="res" hidden></div>
+</section>
+
+<section class="card" id="send" hidden>
+<h2>3. Send it to Ron</h2>
+<p>Ron will call to confirm the numbers, check which carriers fit your age and health, and walk you through the application. Many policies can be applied for in one phone call.</p>
+<label for="when">Best time to reach you</label>
+<input type="text" id="when" placeholder="Example: weekday evenings">
+<button type="button" id="build">Build my summary</button>
+<div id="out" hidden>
+<pre id="sum"></pre>
+<a class="btn" id="mail" href="#">Email to Ron</a>
+<a class="btn alt" id="sms" href="#">Text Ron</a>
+<a class="btn alt" href="tel:+18323538289">Call 832-353-8289</a>
+</div>
+<p style="font-size:.9rem;color:var(--mute)">Nothing is saved or sent until you choose to email or text. Please don’t include medical details, account numbers, or your Social Security number.</p>
+</section>
+
+<section class="card">
+<h2>Common questions</h2>
+<details><summary>Is mortgage protection different from regular life insurance?</summary><p>Mortgage protection is a life insurance policy sized to your mortgage. It is not issued by your lender, and your family gets the money and decides how to use it. Many versions are term life with a term matching your loan.</p></details>
+<details><summary>Will I need a medical exam?</summary><p>Some policies need no exam and decide based on your answers to health questions, sometimes the same day. Others ask for an exam or records. Coverage limits and age limits are usually lower on no-exam policies.</p></details>
+<details><summary>What’s final expense insurance?</summary><p>A smaller permanent policy meant to pay for funeral costs and final bills. It is generally for older adults and usually has lower coverage amounts. Some policies have a waiting period for full benefits.</p></details>
+<details><summary>What does term life mean?</summary><p>Coverage for a set period, such as 10, 20, or 30 years. If you die during the term, your family is paid. If the term ends, so does the coverage, unless the policy lets you renew or convert.</p></details>
+<details><summary>Will I be approved?</summary><p>That depends on the carrier and your answers on the application. Ron will help you find carriers that fit your situation. Please answer every question honestly, because mistakes can lead to a denied claim.</p></details>
+</section>
+
+<footer>
+<p>Ron Launsby, Licensed Life Insurance Agent, Symmetry Financial Group. Licensed in Missouri and Texas. Phone 832-353-8289. Email Rlaunsby.sfg@gmail.com.</p>
+<p>This page is for education only. The coverage amount shown is a rough estimate, not a quote, an offer, or a guarantee of coverage. Policy availability, features, and pricing vary by carrier and state and are subject to underwriting approval. This is not tax, legal, or financial advice.</p>
+</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const num=id=>Math.max(0,parseFloat($(id).value)||0);
+const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+const EMAIL='Rlaunsby.sfg@gmail.com',PHONE='+18323538289';
+const NAMES={mortgage:'Mortgage protection',term:'Income replacement (term life)',final:'Final expense'};
+let type=null,est=null,termYrs=null;
+document.querySelectorAll('.pick').forEach(b=>b.onclick=()=>{
+  type=b.dataset.t;est=null;
+  document.querySelectorAll('.pick').forEach(x=>x.classList.toggle('on',x===b));
+  ['mortgage','term','final'].forEach(t=>$('f-'+t).hidden=t!==type);
+  $('form').hidden=false;$('send').hidden=true;$('res').hidden=true;
+  $('form').scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('calc').onclick=()=>{
+  let need=0,note='';termYrs=null;
+  if(type==='mortgage'){need=num('bal')+num('extra');termYrs=num('yrsleft')||null;note=termYrs?'A term of about '+termYrs+' years would match your mortgage.':'';}
+  if(type==='term'){need=num('inc')*num('yrs')+num('debts');termYrs=num('yrs')||null;note=termYrs?'A term of about '+termYrs+' years would match the years your family needs.':'';}
+  if(type==='final'){need=num('fun')+num('oth')+num('leave');note='Final expense policies are usually smaller permanent policies.';}
+  const have=num('have');est=Math.max(0,need-have);
+  const r=$('res');r.hidden=false;
+  r.innerHTML='Total need: '+money(need)+'<br>Minus coverage you have: '+money(have)+'<br><b>Rough coverage amount: '+money(est)+'</b><br><span style="font-size:.9rem">'+note+' Ron will confirm what each carrier allows for your age and health.</span>';
+  $('send').hidden=false;
+};
+$('build').onclick=()=>{
+  const L=['COVERAGE CHECKUP',''];
+  L.push('Need: '+NAMES[type]);
+  L.push('Age: '+($('age').value||'Not given'));
+  L.push('Tobacco/nicotine: '+($('tob').value||'Not given'));
+  L.push('State: '+($('state').value||'Not given'));
+  L.push('Rough coverage amount: '+(est===null?'Not calculated':money(est)));
+  if(termYrs)L.push('Term length in mind: about '+termYrs+' years');
+  L.push('Comfortable monthly payment: '+($('bud').value?money(num('bud')):'Not given'));
+  L.push('Best time to reach me: '+($('when').value||'Not given'));
+  const s=L.join('\n');$('sum').textContent=s;$('out').hidden=false;
+  $('mail').href='mailto:'+EMAIL+'?subject='+encodeURIComponent('Coverage checkup: '+NAMES[type])+'&body='+encodeURIComponent(s);
+  $('sms').href='sms:'+PHONE+'?&body='+encodeURIComponent(s);
+  $('out').scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+</script>
+</body>
+</html>
